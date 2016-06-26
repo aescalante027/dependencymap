@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -80,7 +80,7 @@ public class DependencyMapperTest {
 	@Test
 	public void testSingleEdge() {
 		mapper.addEdge("A", "B");
-		HashMap<String, Node> result = mapper.getDependencyMap();
+		Map<String, Node> result = mapper.getDependencyMap();
 		assertTrue(result.containsKey("A"));
 		assertTrue(result.get("A").hasDependency("B"));
 		assertEquals(result.get("A").iterator().next().getNodeName(), "B");
@@ -90,7 +90,7 @@ public class DependencyMapperTest {
 	public void testMultiEdge() {
 		mapper.addEdge("A", "B");
 		mapper.addEdge("B", "C");
-		HashMap<String, Node> result = mapper.getDependencyMap();
+		Map<String, Node> result = mapper.getDependencyMap();
 		assertTrue(result.containsKey("A"));
 		assertTrue(result.get("A").hasDependency("B"));
 		assertEquals(result.get("A").iterator().next().getNodeName(), "B");

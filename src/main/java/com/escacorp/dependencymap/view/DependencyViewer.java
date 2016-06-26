@@ -1,8 +1,8 @@
 package com.escacorp.dependencymap.view;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.escacorp.dependencymap.controller.DependencyMapper;
 import com.escacorp.dependencymap.model.Node;
@@ -10,7 +10,7 @@ import com.escacorp.dependencymap.model.Node;
 public class DependencyViewer {
 	
 	private DependencyMapper mapper;
-	private HashMap<String, Node> dependencyMap;
+	private Map<String, Node> dependencyMap;
 	
 	public DependencyViewer() {
 		this.mapper = new DependencyMapper();
@@ -24,7 +24,7 @@ public class DependencyViewer {
 	 * Returns the DependencyMapper class
 	 * @return DependencyMapper class tied to the view
 	 */
-	public DependencyMapper getDepedencyMapper() {
+	public DependencyMapper getDependencyMapper() {
 		return mapper;
 	}
 	
@@ -45,8 +45,8 @@ public class DependencyViewer {
 	public String getLayout(String startNode) {
 		String layout = "";
 		dependencyMap = mapper.getDependencyMap();
-		if(!dependencyMap.isEmpty() && dependencyMap.containsKey(startNode))
-			layout = getLayout(startNode, layout, 0, new HashSet<String>(), new HashSet<Integer>());
+		if((dependencyMap != null) && dependencyMap.containsKey(startNode))
+			layout = getLayout(startNode, layout, 0, new HashSet<>(), new HashSet<>());
 		else
 			layout = "Does not contain " + startNode;
 		return layout;
@@ -120,7 +120,7 @@ public class DependencyViewer {
 	private String calculateSpacing(int depth, HashSet<Integer> continuedDependency) {
 		String line = "";
 		for(int space = 0; space < depth; ++space) {
-			if(continuedDependency.contains(new Integer(space)))
+			if(continuedDependency.contains(space))
 				line = line.concat("|  ");
 			else
 				line = line.concat("   ");
@@ -128,11 +128,7 @@ public class DependencyViewer {
 		return line;
 	}
 	
-	/**
-	 * Added for testing purposes only
-	 * 
-	 * @param args
-	 */
+
 	public static void main(String args[]) {
 		if(args.length != 2) {
 			System.out.println("Usage: java -jar dependencymap.jar <fileLocation> <startNode>");

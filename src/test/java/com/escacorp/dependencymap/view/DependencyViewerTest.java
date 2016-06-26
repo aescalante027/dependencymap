@@ -30,6 +30,12 @@ public class DependencyViewerTest {
 	}
 	
 	@Test
+	public void testLayout_Null() {
+		when(mapper.getDependencyMap()).thenReturn(null);
+		assertEquals("Does not contain A", viewer.getLayout("A"));
+	}
+	
+	@Test
 	public void testLayout_NodeAndDependency() {
 		HashMap<String, Node> singleNode = new HashMap<String, Node>();
 		Node master = new Node("A");

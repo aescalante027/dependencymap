@@ -13,18 +13,13 @@ import com.escacorp.dependencymap.view.DependencyViewer;
 
 public class DependencyViewerFunctionalTest {
 
-	public DependencyViewer viewer;
-	public DependencyMapper mapper;
+	private DependencyViewer viewer;
+	private DependencyMapper mapper;
 	
 	@Before
 	public void setUp() {
 		viewer = new DependencyViewer();
-		mapper = viewer.getDepedencyMapper();
-	}
-	
-	@After
-	public void cleanUp() {
-		mapper.clearMap();
+		mapper = viewer.getDependencyMapper();
 	}
 	
 	@Test

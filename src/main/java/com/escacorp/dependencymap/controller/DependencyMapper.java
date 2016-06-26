@@ -6,11 +6,15 @@ import com.escacorp.dependencymap.model.Node;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DependencyMapper {
 
-	private HashMap<String, Node> map = new HashMap<String, Node>();
+	private Map<String, Node> map = new HashMap<>();
 	
 	/**
 	 * Flushes map of its contents
@@ -25,7 +29,7 @@ public class DependencyMapper {
 	 * 
 	 * @return map - the current state of the Dependency Map
 	 */
-	public HashMap<String, Node> getDependencyMap() {
+	public Map<String, Node> getDependencyMap() {
 		return map;
 	}
 	
@@ -36,16 +40,22 @@ public class DependencyMapper {
 	 * @param file - String representation of file location and file name
 	 */
 	public void readGraphState(String file) {
-		Object[] fileLines = null;
 		try {
-			fileLines = Files.lines(Paths.get(file)).toArray();
+			Object[] fromFile = Files.lines(Paths.get(file)).toArray();
+			List<String>fileLines = new ArrayList<>(Arrays.asList(
+					Arrays.copyOf(fromFile, fromFile.length, String[].class)));
+			for(String line : fileLines) {
+				String[] edge = line.toString().split("->");
+				addEdge(edge[0], edge[1]);
+			}
 		}
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		for(int i = 0; i < fileLines.length; ++i) {
-			String[] edge = fileLines[i].toString().split("->");
-			addEdge(edge[0], edge[1]);
+		catch(ArrayIndexOutOfBoundsException oobe) {
+			System.out.println("File contains errors. Please check format.");
+			oobe.printStackTrace();
+			System.exit(1);
 		}
 	}
 	

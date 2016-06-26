@@ -2,11 +2,12 @@ package com.escacorp.dependencymap.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-public class Node{
+public class Node {
 
 	private String nodeName;
-	private ArrayList<Node> dependencies = new ArrayList<Node>();
+	private List<Node> dependencies = new ArrayList<Node>();
 	
 	public Node(String nodeName) {
 		this.nodeName = nodeName;
