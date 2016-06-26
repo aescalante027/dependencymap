@@ -130,6 +130,7 @@ public class DependencyViewer {
 	
 
 	public static void main(String args[]) {
+		Long time = System.currentTimeMillis();
 		if(args.length != 2) {
 			System.out.println("Usage: java -jar dependencymap.jar <fileLocation> <startNode>");
 		}
@@ -138,6 +139,7 @@ public class DependencyViewer {
 			viewer.submitGraphState(args[0]);
 			System.out.println("Dependency Map:");
 			System.out.println(viewer.getLayout(args[1]));
+			System.out.println("Execution time: " + (System.currentTimeMillis() - time) + " ms");
 		}
 	}
 
